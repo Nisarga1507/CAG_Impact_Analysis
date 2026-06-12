@@ -1,0 +1,181 @@
+---
+title: 'Regional Variations in Client Debt and Financial Hardship: A Statistical Analysis
+  of Citizens Advice Gateshead Data'
+author: "Nisarga"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+source("scripts/task2_analysis.R")
+
+```
+
+# Executive Summary
+
+This report investigates whether financial hardship differs across regions using Citizens Advice Gateshead client debt data for 2025. The analysis was undertaken to assess whether financial hardship varies across region and to indentify areas where additional support may be required. The analysis was conducted using R Studio and combined descriptive statistics with inferential statistical techniques. Three key questions were examined: whether average outstanding debt differs by region, whether the proportion of customers presenting with debt-related issues varies by region, and whether regional differences in debt remain after controlling for annual income.
+
+The findings indicate clear regional differences in financial hardship. Customers in the South region recorded the highest average outstanding debt (£11,710), followed by the West (£10,906), while the East (£7,053) and North (£7,388) regions recorded substantially lower average debt levels. Analysis of Variance (ANOVA) confirmed that these differences were statistically significant (p < 0.001), and post-hoc testing identified significant differences between several regional pairs.
+
+The proportion of customers presenting with debt-related issues also differed significantly across regions. A Chi-Square test demonstrated that the relationship between region and debt-related issues was statistically significant (p < 0.001), indicating that debt problems are not evenly distributed across the population.
+
+Multiple linear regression was used to assess whether regional differences in debt remained after accounting for annual income. Although annual income was found to be a significant predictor of outstanding debt, regional differences remained significant after controlling for income. This suggests that factors beyond income alone contribute to variations in financial hardship across regions.
+
+Overall, the analysis provides strong statistical evidence that financial hardship is not distributed evenly across Gateshead. The findings suggest that some regions experience significantly greater financial challenges than others and should therefore be prioritised for targeted advice, debt support and financial inclusion initiatives to help reduce regional inequalities in financial hardship.
+
+# 1. Introduction
+
+Financial hardship continues to affect many households across the United Kingdom, creating social and economic challenges for individuals, communities and public services. Rising living costs, increasing debt burdens and financial insecurity can affect wellbeing, limit access to essential services and reduce financial resilience among households. Organisations such as Citizens Advice play an important role in supporting individuals experiencing financial difficulties by providing advice, guidance and practical assistance across a range of issues, including debt management, benefits, housing and financial capability.
+
+Recent concerns have suggested that levels of financial hardship may not be evenly distributed across Gateshead, with some regions potentially experiencing greater financial challenges than others. Understanding whether these differences exist is important for ensuring that advice services, financial support programmes and community resources are targeted effectively towards areas of greatest need. Evidence-based decision-making is particularly important in environments where resources are limited and demand for support services continues to increase.
+
+This report investigates regional differences in financial hardship using Citizens Advice Gateshead client debt data for the 2025 reporting period. The dataset contains information relating to customer demographics, annual income, outstanding debt levels and issue types, providing an opportunity to explore patterns of financial hardship across different regions.
+
+The primary aim of the analysis is to determine whether there is statistical evidence that financial hardship varies by region. To achieve this, three key research questions are addressed. First, the analysis examines whether average outstanding debt differs significantly between regions. Second, it investigates whether the proportion of customers presenting with debt-related issues varies across regions. Finally, it assesses whether any observed regional differences in debt levels remain after controlling for annual income, helping to determine whether income alone explains regional variation in financial hardship.
+
+The findings of this analysis will provide insight into the distribution of financial hardship across Gateshead and support evidence-based recommendations for targeting advice services and financial support initiatives. By combining descriptive analysis, data visualisation and statistical testing, the report aims to provide a robust assessment of whether regional inequalities in financial hardship exist and the extent to which they may influence service demand.
+
+# 2. Methodology
+
+## 2.1 Data Source
+
+The analysis was conducted using a dataset provided by Citizens Advice Gateshead containing 1,200 client records for the 2025 reporting period. The dataset included information relating to customer demographics, region, annual income, outstanding debt and issue type. These variables provided the information required to investigate whether financial hardship differed across regions.
+
+## 2.2 Data Preparation and Quality Assurance
+
+The analysis was undertaken using RStudio and the tidyverse ecosystem. Data were imported using the `read_csv()` function and variable names were standardised using the `janitor` package to improve consistency and facilitate analysis. Data quality checks were performed to identify duplicate records and assess the presence of missing values. No duplicate records or missing values were identified, indicating that the dataset was suitable for statistical analysis. The absence of missing values and duplicate records increased confidence in the reliability of subsequent statistical analyses and reduced the risk of bias within the results.
+
+## 2.3 Statistical Analysis
+
+To determine whether average outstanding debt differed between regions, descriptive statistics were calculated and an Analysis of Variance (ANOVA) test was performed. ANOVA was selected because it enables comparison of mean values across more than two groups simultaneously. Where statistically significant differences were identified, Tukey’s Honestly Significant Difference (HSD) test was used to determine which regional pairs differed significantly.
+
+To investigate whether the proportion of customers presenting with debt-related issues varied by region, a Chi-Square Test of Independence was conducted. This test was selected because both variables were categorical and the objective was to determine whether a statistically significant association existed between region and debt-related issues.
+
+To assess whether regional differences in debt levels remained after controlling for income, multiple linear regression was used. Outstanding debt was specified as the dependent variable, while annual income and region were included as explanatory variables. This approach enabled the effect of region to be evaluated while holding income constant.
+
+## 2.4 Data Visualisation
+
+Data visualisations were created using the ggplot2 package to support interpretation of the findings. Visualisations included a bar chart of average debt by region, a boxplot illustrating debt distributions, a stacked bar chart showing the proportion of debt-related issues by region and a scatterplot examining the relationship between income and outstanding debt. These visualisations were used to communicate patterns within the data and support interpretation of the statistical results.
+
+# 3. Results and Discussion
+
+## 3.1 Average Outstanding Debt by Region
+
+```{r echo=FALSE}
+knitr::kable(
+  debt_by_region,
+  caption = "Table 1. Average Outstanding Debt by Region"
+)
+```
+
+```{r echo=FALSE, fig.width=6, message=FALSE, warning=FALSE, fig.height=4, out.width="80%"}
+mean_debt_chart
+```
+
+```{r echo=FALSE, fig.width=6, message=FALSE, warning=FALSE, fig.height=4, out.width="80%"}
+boxplot_region_debt
+```
+### Interpretation
+
+Table 1 and Figures 1–2 demonstrate clear differences in average outstanding debt across regions. Customers in the South region recorded the highest average outstanding debt (£11,710), followed by the West (£10,906). In contrast, customers in the East (£7,053) and North (£7,388) regions recorded substantially lower average debt levels.
+
+The boxplot further illustrates these differences by showing the distribution of debt values within each region. While variation exists within all regions, customers in the South and West consistently exhibit higher debt levels than those in the East and North.
+
+To determine whether these differences were statistically significant, a one-way Analysis of Variance (ANOVA) was performed.
+
+### ANOVA Output
+
+```{r echo=FALSE}
+anova_results
+```
+The ANOVA test produced a statistically significant result (F = 126.4, p < 0.001), indicating that average outstanding debt differs significantly across regions. This provides strong evidence that financial hardship is not evenly distributed geographically.
+
+### Tukey Output
+
+```{r echo=FALSE}
+tukey_results
+```
+Tukey post-hoc testing was undertaken to identify which regions differed significantly from one another. The results indicate that South and West recorded significantly higher debt levels than East and North. The largest observed difference was between South and East, where average debt differed by approximately £4,657.
+
+These findings suggest that residents in certain regions may face greater financial pressures and therefore require increased levels of support and intervention.
+
+## 3.2 Debt Issues by Region
+
+
+```{r echo=FALSE}
+knitr::kable(
+  debt_percentages,
+  caption = "Table 2. Percentage of Customers with Debt Issues"
+)
+```
+
+Figure 3 illustrates the proportion of customers presenting with debt-related issues across regions.
+
+```{r echo=FALSE, fig.width=6, message=FALSE, warning=FALSE,fig.height=4, out.width="80%"}
+debt_issue_chart
+```
+
+The proportion of customers presenting with debt-related issues varied considerably across regions. South and West recorded the highest proportions of debt-related issues, while East recorded the lowest.
+
+These differences suggest that debt problems are more prevalent in certain regions and may contribute to the regional variation observed in outstanding debt levels.
+
+### Chi-Square Test
+
+```{r echo=FALSE}
+chi_test
+```
+
+The Chi-Square Test of Independence identified a statistically significant relationship between region and debt-related issues (χ² = 37.43, p < 0.001). This indicates that the likelihood of a customer presenting with a debt issue differs significantly by region.
+
+The findings provide further evidence that financial hardship is not evenly distributed across Gateshead and that regional factors may influence the prevalence of debt-related problems.
+
+## 3.3 Does Region Matter When Income is Held Constant?
+
+Figure 4 illustrates the relationship between annual income and outstanding debt across regions.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE,fig.width=6, fig.height=4, out.width="80%"}
+income_debt_plot
+```
+
+Figure 4 illustrates the relationship between annual income and outstanding debt. A negative relationship is observed, indicating that customers with higher incomes generally tend to have lower levels of outstanding debt.
+
+However, differences between regions remain visible, suggesting that income alone may not fully explain regional variation in debt levels.
+
+### Regression Results
+
+```{r echo=FALSE}
+knitr::kable(
+  broom::tidy(regression_model),
+  digits = 3,
+  caption = "Table 3. Multiple Regression Results"
+)
+```
+
+Multiple linear regression was used to determine whether regional differences in debt remained after controlling for annual income. Annual income was found to be a statistically significant predictor of outstanding debt (p < 0.001), indicating that customers with higher incomes generally experienced lower debt levels.
+
+Importantly, regional effects remained statistically significant after controlling for income. Customers in the South and West continued to exhibit substantially higher debt levels than customers in the East region, even when differences in income were taken into account.
+
+These findings suggest that income alone does not explain regional differences in financial hardship. Other factors, such as employment opportunities, housing costs, local economic conditions or demographic characteristics, may also contribute to the observed variation in debt levels.
+
+# 4. Conclusion
+
+This analysis investigated whether financial hardship differs across regions within Gateshead using Citizens Advice Gateshead client debt data for the 2025 reporting period. The findings provide strong statistical evidence that financial hardship is not distributed evenly across regions.
+
+Analysis of outstanding debt levels identified significant regional variation, with customers in the South and West regions experiencing substantially higher average debt levels than those in the East and North. ANOVA and Tukey post-hoc testing confirmed that several of these differences were statistically significant, indicating that regional disparities in debt levels are unlikely to have occurred by chance.
+
+The analysis also found significant differences in the proportion of customers presenting with debt-related issues across regions. The Chi-Square Test of Independence demonstrated that debt issues are more prevalent in some regions than others, providing further evidence of unequal levels of financial hardship across the population.
+
+Multiple linear regression showed that annual income is an important predictor of outstanding debt. However, regional differences remained significant after controlling for income, suggesting that factors beyond income alone contribute to regional variation in financial hardship.
+
+Overall, the findings indicate that some regions face greater financial challenges than others and may therefore benefit from targeted advice services, debt support interventions and financial inclusion initiatives. Continued monitoring of regional trends will help ensure that advice services and financial support resources remain targeted towards communities experiencing the greatest levels of financial need.
+
+

@@ -1,0 +1,242 @@
+---
+title: 'Gateshead Council Advice in Community Project (2025): Performance and Impact   Analysis'
+author: "Nisarga"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+source("scripts/task1_analysis.R")
+
+```
+
+# Executive Summary
+
+This report evaluates the performance and impact of the Gateshead Council Advice in Community Project during 2025 using Citizens Advice Gateshead service data.
+
+During the reporting period, the project supported **2,559 clients** and addressed **3,669 issues**, equating to an average of **1.43 issues per client**. This indicates that many residents required support across multiple areas of need and highlights the complexity of issues experienced by service users.
+
+Analysis of issue activity identified **Charitable Support and Food Banks**, **Debt**, and **Benefits** as the most common issue areas. These findings suggest that cost-of-living pressures and financial hardship remained significant challenges for many households across Gateshead during 2025.
+
+The project delivered substantial financial benefits for residents. The project secured £1.58 million in income gains  alongside significant debt relief and other financial outcomes. Income-related interventions generated the highest levels of financial gain, demonstrating the value of advice services in improving financial resilience and maximising household income.
+
+Financial gains were achieved across parliamentary constituencies within Gateshead, although the level of benefit varied between areas. This demonstrates the broad reach of the project and its contribution to supporting residents throughout the borough.
+
+Overall, the findings show that the Advice in Community Project delivered meaningful social and financial impact during 2025. By helping residents access financial support, manage debt and address essential needs, the project continues to play an important role in improving wellbeing and supporting vulnerable communities across Gateshead.
+
+
+# 1. Introduction
+
+This report provides an analysis of the Gateshead Council – Advice in Community Project using Citizens Advice Gateshead service data for the 2025 reporting period. The purpose of the report is to summarise key service activity, client demand and financial outcomes achieved through the project and to provide evidence of its impact across Gateshead communities.
+
+Citizens Advice Gateshead supports residents experiencing a wide range of social, financial and welfare-related challenges. Through advice, advocacy and practical support, the service helps individuals access their rights, improve their financial circumstances and address issues affecting their wellbeing. The Advice in Community Project forms an important part of this work by providing support to residents facing financial hardship, debt, benefits issues and other essential needs.
+
+This report focuses on eight key performance indicators requested by Gateshead Council. These include the number of clients supported, the number of issues addressed, issues per client, activity by issue area, monthly service demand, financial gains achieved through advice interventions and the distribution of financial outcomes across parliamentary constituencies within Gateshead.
+
+The analysis was conducted using R and combines tabular summaries with data visualisations to support interpretation of the findings. Together, these measures provide an overview of service performance during 2025 and demonstrate the contribution of the project to supporting residents and improving financial wellbeing across the borough.
+
+The findings presented in this report are intended to support stakeholder understanding of project activity and outcomes and to provide evidence of the value delivered through the Advice in Community Project during the reporting period.
+
+
+# 2. Methodology
+
+## 2.1 Data Sources
+
+Two datasets were provided for analysis as part of the assessment task. The first dataset, the Issues Dataset, contained information relating to client enquiries, issue categories, demographic characteristics and geographical information. The second dataset, the Outcomes Dataset, contained information relating to financial outcomes achieved through advice interventions, including financial outcome categories and monetary values.
+
+The analysis focused exclusively on records associated with the Gateshead Council – Advice in Community Project. Together, these datasets provided the information required to assess service demand, identify patterns in client needs, evaluate financial outcomes and examine trends affecting residents throughout the 2025 reporting period.
+
+## 2.2 Data Preparation and Cleaning
+
+The analysis was conducted using R Studio and the tidyverse suite of packages. Prior to analysis, a series of data preparation and validation steps were undertaken to ensure the quality, consistency and reliability of the data.
+
+Both datasets were imported using the read_csv() function. Column names were standardised using the janitor package to improve consistency and simplify subsequent data manipulation. Date variables were converted into a standard date format using the lubridate package, enabling accurate filtering and time-based analysis.
+
+Financial outcome values were originally stored as text strings containing currency symbols (£) and comma separators. These values were converted into numeric format to enable aggregation, statistical calculations and visualisation. Duplicate records were identified and removed where necessary, while missing values were assessed to determine their potential impact on the analysis.
+
+Additional validation checks were undertaken, including verification of project funder information and confirmation of successful joins between datasets. These procedures helped ensure that the analysis was based on accurate and reliable information.
+
+## 2.3 Data Filtering and Analytical Approach
+
+To ensure the analysis aligned with the project requirements, records were filtered to include only those associated with the Gateshead Council – Advice in Community Project. In addition, only records relating to activity occurring during the 2025 reporting period were retained.
+
+The analysis was structured around the key performance indicators requested within the assessment brief. Measures calculated included the number of clients supported, number of issues recorded, average issues per client, clients and issues by issue area, monthly issue trends, financial gains by outcome category, financial gains by parliamentary constituency and the distribution of financial gains across constituencies.
+
+Descriptive statistical techniques were used to summarise service activity, identify trends in client demand and evaluate the financial impact achieved through advice interventions.
+
+## 2.4 Data Visualisation
+
+Data visualisations were created using the ggplot2 package to support interpretation of the findings and communicate results effectively to stakeholders. Three key visualisations were produced: a line chart showing monthly issue trends throughout 2025, a bar chart illustrating total financial gain by outcome category, and a boxplot displaying the distribution of financial gains across parliamentary constituencies.
+
+These visualisations were selected because they provide clear and accessible representations of service demand patterns and financial outcomes. By presenting the results visually, stakeholders are able to identify trends, compare performance across categories and better understand the overall impact of the Advice in Community Project on local residents.
+
+This analysis is based on records available within the Issues and Outcomes datasets and may not capture wider social impacts not recorded within the case management system.
+
+# 3. Results and Discussion
+
+## 3.1 Summary Service Activity
+
+Table 1. Summary Service Activity (2025)
+
+```{r}
+knitr::kable(
+  summary_table,
+  caption = "Table 1. Summary Service Activity (2025)"
+)
+```
+During 2025, the Advice in Community Project supported 2,559 clients and addressed 3,669 issues, resulting in an average of 1.43 issues per client. The fact that the number of issues exceeds the number of clients indicates that many residents required assistance with multiple challenges simultaneously.
+The average issues-per-client ratio suggests that service users often experience interconnected problems, such as debt, benefits and housing concerns, rather than isolated issues. This highlights the importance of providing holistic advice services capable of addressing multiple areas of need within a single case.
+
+## 3.2 Clients by Issue Area
+
+Table 2. Number of Clients by Issue Area
+
+```{r}
+knitr::kable(
+  head(clients_by_issue_area, 10),
+  caption = "Table 2. Top 10 Issue Areas by Number of Clients"
+)
+```
+
+```{r echo=FALSE, fig.width=6, fig.height=3.5, out.width="85%"}
+top_issue_chart
+```
+
+Table 2 and Figure 1 show that Charitable Support and Food Banks represented the largest area of client demand, followed by Debt and Benefits-related enquiries. These findings suggest that financial hardship and cost-of-living pressures continue to affect many households throughout Gateshead during 2025.
+The concentration of demand within these issue areas demonstrates the importance of maintaining services that support residents experiencing financial vulnerability and income-related challenges.
+
+## 3.3 Issues by Issue Area
+
+Table 3. Number of Issues by Issue Area
+
+```{r}
+knitr::kable(
+  head(issues_by_issue_area, 10),
+  caption = "Table 3. Top 10 Issue Areas by Number of Issues"
+)
+```
+
+The distribution of issues closely mirrors the client analysis, with Charitable Support and Food Banks, Debt and Benefits accounting for the majority of recorded activity. This reinforces evidence that financial pressures remained a key driver of demand for advice services throughout the reporting period.
+The findings suggest that many clients required ongoing support across multiple financial and welfare-related concerns.
+
+## 3.4 Monthly Number of Issues
+
+Figure 2. Monthly Number of Issues During 2025
+
+```{r echo=FALSE, fig.width=6, fig.height=3.5, out.width="85%"}
+monthly_plot
+```
+
+Figure 2 shows that service demand varied throughout the year, although issue volumes remained consistently high across all months. Demand increased during the spring and summer periods before declining slightly towards the end of the year.
+These fluctuations may reflect seasonal pressures, changes in household finances and variations in support needs across the community. The sustained level of activity throughout the year demonstrates the continuing importance of advice services within Gateshead.
+
+## 3.5 Financial Gain by Outcome Category
+
+Table 4. Financial Gain by Outcome Category
+
+```{r}
+knitr::kable(
+  gain_by_category,
+  caption = "Table 4. Financial Gain by Outcome Category"
+)
+```
+
+Figure 3. Financial Gain by Outcome Category
+
+```{r echo=FALSE, fig.width=6, fig.height=3.5, out.width="85%"}
+gain_chart
+```
+
+Table 4 and Figure 3 shows that the advice in Community Project generated substantial financial benefits for residents across several outcome categories. Income Gain accounted for the largest proportion of total financial outcomes, generating approximately £1.58 million during 2025.
+
+These findings demonstrate the effectiveness of advice interventions in helping residents access entitlements, maximise income and improve their financial circumstances. The financial outcomes achieved represent a significant benefit both for service users and the wider community.
+
+## 3.6 Financial Gain by Parliamentary Constituency
+
+Table 5. Financial Gain by Parliamentary Constituency
+
+```{r}
+knitr::kable(
+  gain_constituency,
+  caption = "Table 5. Financial Gain by Parliamentary Constituency"
+)
+```
+
+Figure 4. Financial Gain by Parliamentary Constituency
+
+```{r echo=FALSE, fig.width=6, fig.height=3.5, out.width="85%"}
+constituency_chart
+```
+
+Table 5 and Figure 4 show that financial gains were achieved across multiple parliamentary constituencies within Gateshead, demonstrating the broad reach of the project. However, the total value of gains varied between constituencies.
+
+Differences between areas may reflect variations in population characteristics, client demand, case complexity and engagement with advice services. Despite these differences, the project delivered meaningful financial benefits across the borough.
+
+Note: Constituency-level totals only include records successfully linked to Gateshead constituency information and therefore do not represent the full financial gain achieved by the project.
+
+## 3.7 Distribution of Financial Gain by Constituency
+
+Figure 5. Distribution of Financial Gain by Parliamentary Constituency
+
+```{r echo=FALSE, fig.width=6, fig.height=3.5, out.width="85%"}
+boxplot_gain
+```
+
+Figure 5 illustrates substantial variation in financial outcomes across constituencies. While many cases generated relatively modest gains, a smaller number of cases resulted in substantially larger financial outcomes.
+
+This positively skewed distribution is typical within advice services, where complex cases involving benefit entitlement corrections, debt write-offs or backdated payments can generate particularly high financial gains.
+
+The variation observed highlights the diverse needs of service users and demonstrates the value of maintaining services capable of supporting both routine and complex cases.
+
+## 3.8 Financial Outcome Summary
+
+Table 6. Financial Outcome Summary
+
+```{r}
+knitr::kable(
+  financial_summary_table,
+  caption = "Table 6. Financial Outcome Summary"
+)
+```
+
+Figure 6. Distribution of Financial Outcomes
+
+```{r echo=FALSE, fig.width=6, fig.height=3.5, out.width="85%"}
+gain_distribution
+```
+The financial outcome summary provides an overview of the scale and distribution of financial gains achieved through the project. The total financial gain secured for residents exceeded £1.5 million, demonstrating the substantial economic impact delivered through advice interventions.
+
+The distribution of outcomes is positively skewed, indicating that while most financial gains were relatively modest, a small number of high-value outcomes contributed significantly to the overall financial benefit achieved. This pattern reflects the varied complexity of cases handled by the service and the potential for advice interventions to deliver substantial financial improvements for residents facing challenging circumstances.
+
+These findings demonstrate the substantial economic value generated by the Advice in Community Project and provide evidence of its contribution to improving financial wellbeing across Gateshead.
+
+# Key Findings
+
+- The Advice in Community Project supported 2,559 unique clients during 2025, demonstrating substantial demand for advice and support services across Gateshead.
+
+- A total of 3,669 issues were recorded, indicating that many clients required support across multiple areas of need.
+
+- Charitable Support & Food Banks, Debt, and Benefits-related issues were the most common advice areas, highlighting the continuing impact of financial hardship and cost-of-living pressures on local residents.
+
+- The project generated significant financial benefits for residents, including over £1.5 million in income gains and substantial debt relief, demonstrating the tangible impact of advice interventions on financial wellbeing
+
+- Financial gains were achieved across multiple Gateshead constituencies, demonstrating the project's positive impact throughout the local community.
+
+# Conclusion
+
+This report evaluated the performance and impact of the Gateshead Council – Advice in Community Project during 2025 using Citizens Advice Gateshead service data.
+
+The analysis showed that the project provided substantial support to local residents, assisting 2,559 clients and addressing 3,669 issues during the reporting period. The average of 1.43 issues per client indicates that many service users experienced multiple and interconnected challenges, highlighting the complexity of needs within the community.
+
+Analysis of issue activity identified Charitable Support and Food Banks, Debt and Benefits-related enquiries as the most common areas of demand. These findings suggest that financial hardship and cost-of-living pressures continued to affect many households across Gateshead throughout 2025.
+
+The project also generated significant financial benefits for residents. More than £1.5 million in financial gains were achieved, with Income Gain representing the largest outcome category. Financial benefits were delivered across parliamentary constituencies within Gateshead, demonstrating the broad reach of the service and its contribution to supporting residents throughout the borough.
+
+Overall, the findings demonstrate that the Advice in Community Project delivered meaningful social and financial impact during 2025. By helping residents access financial support, manage debt, maximise income and address essential needs, the project contributed to improving financial wellbeing and reducing the effects of financial hardship within local communities. Continued investment in advice services will help ensure that residents can access timely support and achieve positive outcomes in the future.
