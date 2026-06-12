@@ -1,0 +1,22 @@
+
+Call:
+lm(formula = outstanding_debt ~ annual_income + region, data = debt)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10179.8  -2416.8     -8.8   2413.2   9810.6 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    1.052e+04  4.120e+02  25.531   <2e-16 ***
+annual_income -8.184e-02  8.445e-03  -9.690   <2e-16 ***
+regionNorth    4.651e+02  2.895e+02   1.607    0.108    
+regionSouth    4.301e+03  2.915e+02  14.756   <2e-16 ***
+regionWest     4.303e+03  2.928e+02  14.692   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3541 on 1195 degrees of freedom
+Multiple R-squared:  0.2961,	Adjusted R-squared:  0.2937 
+F-statistic: 125.6 on 4 and 1195 DF,  p-value: < 2.2e-16
+

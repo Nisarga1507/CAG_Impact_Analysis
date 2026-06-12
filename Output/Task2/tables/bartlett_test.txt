@@ -1,0 +1,6 @@
+
+	Bartlett test of homogeneity of variances
+
+data:  outstanding_debt by region
+Bartlett's K-squared = 1.7064, df = 3, p-value = 0.6355
+

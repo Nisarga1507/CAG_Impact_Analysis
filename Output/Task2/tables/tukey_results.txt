@@ -1,0 +1,14 @@
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = outstanding_debt ~ region, data = debt)
+
+$region
+                 diff        lwr        upr     p adj
+North-East   335.3033  -436.9128 1107.51947 0.6790652
+South-East  4656.7733  3884.5572 5428.98947 0.0000000
+West-East   3852.7033  3080.4872 4624.91947 0.0000000
+South-North 4321.4700  3549.2539 5093.68614 0.0000000
+West-North  3517.4000  2745.1839 4289.61614 0.0000000
+West-South  -804.0700 -1576.2861  -31.85386 0.0375368
+
